@@ -92,7 +92,7 @@ class Payment {
 
     @Override
     public String toString() {
-        return String.format(Locale.US,
+        return String.format(
                 "Payment[%s %s, оклад=%.2f, рік=%d, надбавка=%.1f%%, податок=%.1f%%, "
                         + "днів=%d/%d, нараховано=%.2f, утримано=%.2f]",
                 surname, name, salary, hireYear, bonusPercent, taxPercent,
@@ -114,11 +114,6 @@ class Payment {
                 && daysInMonth == p.daysInMonth;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(surname, name, salary, hireYear, bonusPercent,
-                taxPercent, daysWorked, daysInMonth);
-    }
 }
 class Prism {
     private double side;    // сторона правильного трикутника в основі
@@ -152,18 +147,12 @@ class Prism {
     public static int getCount() {
         return count;
     }
-
-    /** Площа основи правильного трикутника */
     public double baseArea() {
         return (side * side * SQRT3) / 4.0;
     }
-
-    /** Площа бічної поверхні призми */
     public double lateralArea() {
         return 3.0 * side * height;
     }
-
-    /** Об'єм призми */
     public double volume() {
         return baseArea() * height;
     }
@@ -192,11 +181,6 @@ class Prism {
         if (!(obj instanceof Prism)) return false;
         Prism p = (Prism) obj;
         return Double.compare(side, p.side) == 0 && Double.compare(height, p.height) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(side, height);
     }
 }
 class Complex {
@@ -252,13 +236,9 @@ class Complex {
         }
         return new Complex((re * o.re + im * o.im) / d, (im * o.re - re * o.im) / d);
     }
-
-    /** Модуль комплексного числа */
     public double modulus() {
         return Math.hypot(re, im);
     }
-
-    /** Аргумент комплексного числа */
     public double argument() {
         return Math.atan2(im, re);
     }
@@ -268,8 +248,8 @@ class Complex {
 
     @Override
     public String toString() {
-        if (im >= 0) return String.format(Locale.US, "%.3f + %.3fi", re, im);
-        return String.format(Locale.US, "%.3f - %.3fi", re, -im);
+        if (im >= 0) return String.format( "%.3f + %.3fi", re, im);
+        return String.format( "%.3f - %.3fi", re, -im);
     }
 
     @Override
@@ -280,10 +260,6 @@ class Complex {
         return Double.compare(re, c.re) == 0 && Double.compare(im, c.im) == 0;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(re, im);
-    }
 }
 public class Main {
 
@@ -294,7 +270,7 @@ public class Main {
         cmdArgs = args;
         boolean run = true;
         while (run) {
-            System.out.println("\n============ ГОЛОВНЕ МЕНЮ (варіант 9) ============");
+            System.out.println("\nМЕНЮ (варіант 9)");
             System.out.println("1. Завдання 1.9 - Payment (зарплата)");
             System.out.println("2. Завдання 2.9 - Prism (призма)");
             System.out.println("3. Завдання 3.9 - Complex (комплексне число)");
@@ -308,12 +284,12 @@ public class Main {
                 default: System.out.println("Невірний пункт меню!");
             }
         }
-        System.out.println("До побачення!");
+        System.out.println("Пака!");
         in.close();
     }
 
     private static void runPayment() {
-        System.out.println("\n--- Завдання 1.9: Payment ---");
+        System.out.println("\n Завдання 1.9: Payment");
         System.out.println("Введіть дані працівника:");
         String surname = readString("1. Прізвище: ");
         String name = readString("2. Ім'я: ");
@@ -326,7 +302,7 @@ public class Main {
 
         Payment p = new Payment(surname, name, salary, hireYear, bonus, tax, daysWorked, daysInMonth);
 
-        System.out.println("\n--- Результат ---");
+        System.out.println("\n Результат");
         System.out.println("Створено: " + p);
         System.out.printf(Locale.US, "Нарахована сума: %.2f%n", p.calcAccrued());
         System.out.printf(Locale.US, "Утримана сума:   %.2f%n", p.calcWithheld());
@@ -340,7 +316,7 @@ public class Main {
     }
 
     private static void runPrism() {
-        System.out.println("\n--- Завдання 2.9: Prism ---");
+        System.out.println("\n Завдання 2.9: Prism");
         System.out.println("Введіть дані призми:");
         Prism p = null;
         while (p == null) {
@@ -353,7 +329,7 @@ public class Main {
             }
         }
 
-        System.out.println("\n--- Результат ---");
+        System.out.println("\nРезультат");
         System.out.println("Створено: " + p);
         System.out.printf(Locale.US, "Площа основи:          %.3f%n", p.baseArea());
         System.out.printf(Locale.US, "Площа бічної поверхні: %.3f%n", p.lateralArea());
@@ -367,7 +343,7 @@ public class Main {
     }
 
     private static void runComplex() {
-        System.out.println("\n--- Завдання 3.9: Complex ---");
+        System.out.println("\nЗавдання 3.9: Complex");
         double[] v = new double[4];
         boolean fromArgs = false;
         if (cmdArgs.length == 4) {
@@ -389,7 +365,7 @@ public class Main {
         Complex z1 = new Complex(v[0], v[1]);
         Complex z2 = new Complex(v[2], v[3]);
 
-        System.out.println("\n--- Результат ---");
+        System.out.println("\nРезультат");
         System.out.println("z1 = " + z1);
         System.out.println("z2 = " + z2);
         System.out.println("z1 + z2 = " + z1.add(z2));
